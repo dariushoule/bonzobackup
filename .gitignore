@@ -1,0 +1,15 @@
+# Backup output dirs — NEVER commit these. They contain private source,
+# private issue/PR text, and release binaries.
+/backup/
+/_testbackup/
+*.bundle
+
+# Common alternate backup destinations
+/gh-backup/
+/backups/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
