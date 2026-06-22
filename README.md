@@ -2,7 +2,7 @@
 
 A single-file, cross-platform disaster-recovery backup for your entire GitHub
 account. It captures the stuff that's irreplaceable if GitHub ever becomes
-inaccessible to you: not just code, but all the rich metadata that lives only
+inaccessible to you: not just code, but all the metadata that lives only
 on GitHub's servers.
 
 It leans entirely on the official **`gh`** CLI for auth and API access, so there
@@ -45,20 +45,13 @@ restorable forever.
 - `git`
 - Python 3.8+
 
-All three run on Windows, macOS, and Linux.
-
 ## Usage
 
 ```bash
 python3 ghbackup.py --out ./backup
 ```
 
-```powershell
-# Windows
-python ghbackup.py --out D:\gh-backup
-```
-
-Re-run any time. It's **incremental** (see below), so subsequent runs are fast.
+Backups are incremental, so subsequent runs are faster.
 
 ### Options
 
@@ -115,30 +108,6 @@ backup/
 
 > Note: `issues.json` includes pull requests too, since that's how GitHub's
 > issues API works. `pulls.json` has the PR-specific fields.
-
-## Restoring
-
-The git data is the irreplaceable part, and it restores anywhere with no
-GitHub, no server, fully offline:
-
-```bash
-# From the single-file bundle:
-git clone backup/repos/myrepo/myrepo.bundle myrepo
-
-# Or from the mirror:
-git clone backup/repos/myrepo/git/myrepo.git myrepo
-```
-
-To push a recovered repo to a new home (e.g. a fresh GitHub repo or GitLab):
-
-```bash
-git clone --mirror backup/repos/myrepo/git/myrepo.git
-cd myrepo.git
-git push --mirror https://github.com/you/myrepo-restored.git
-```
-
-Metadata (issues, PRs, etc.) is JSON. Read it directly, or feed it to GitHub's
-import APIs if you ever need to recreate the project on a new account.
 
 ## Scheduling (so it just runs)
 
